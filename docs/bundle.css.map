@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../src/Book.svelte",
+    "../src/Block.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n    import Block from './Block.svelte';\n\n    export let id;\n    export let title;\n    export let author;\n    export let publishedAt;\n    export let blocks;\n</script>\n\n<style>\n    h1 {\n        text-align: center;\n    }\n    small {\n        margin-left: 65%;\n        text-align: right;\n    }\n</style>\n\n<div id=\"{id}\">\n    <h1>{title}</h1>\n    <small>{author}</small>\n    {#each blocks as block}\n        <Block {...block} />\n    {/each}\n</div>\n",
+    "<script>\n    export let page;\n    export let text;\n    export let styles;\n\n    let classes = [];\n    const style = Object.keys(styles).reduce((acc, key) => {\n        let value = styles[key];\n        switch (key) {\n          case 'top':\n          case 'left':\n          case 'position':\n          case 'white-space':\n            return acc;\n          case 'font-weight':\n          case 'font-style':\n          case 'color':\n            if (value === 'bold') classes.push('bold');\n            if (value === 'italic') classes.push('emphasis');\n            if (value === 'rgba(0,0,237,1)') classes.push('blue')\n        }\n      return `${acc}${key}:${value};`\n      }, '');\n</script>\n\n<style>\n    p {\n        text-indent: 5em;\n        font-weight: bold;\n    }\n\n    .blue {\n        text-indent: inherit;\n    }\n\n    .bold, .emphasis {\n        text-align: center;\n        text-indent: inherit;\n    }\n</style>\n\n<p style=\"{style}\" class=\"{classes.join(' ')}\">{text}</p>"
+  ],
+  "names": [],
+  "mappings": "AAWI,EAAE,cAAC,CAAC,AACA,UAAU,CAAE,MAAM,AACtB,CAAC,AACD,KAAK,cAAC,CAAC,AACH,WAAW,CAAE,GAAG,CAChB,UAAU,CAAE,KAAK,AACrB,CAAC;ACSD,CAAC,eAAC,CAAC,AACC,WAAW,CAAE,GAAG,CAChB,WAAW,CAAE,IAAI,AACrB,CAAC,AAED,KAAK,eAAC,CAAC,AACH,WAAW,CAAE,OAAO,AACxB,CAAC,AAED,oBAAK,CAAE,SAAS,eAAC,CAAC,AACd,UAAU,CAAE,MAAM,CAClB,WAAW,CAAE,OAAO,AACxB,CAAC"
+}
