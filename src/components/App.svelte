@@ -2,9 +2,9 @@
     import Profile from './Profile.svelte';
     import Books from './Books.svelte';
 
-    import { auth, googleProvider } from './firebase';
+    import { auth, googleProvider } from './../firebase';
     import { authState } from 'rxfire/auth';
-    import storage from './storage.js';
+    import storage from './../storage';
 
     let user;
 
@@ -35,8 +35,8 @@
     <hr>
     <Books />
 {:else}
-	<button on:click={login}>
-		Signin with Google
-	</button>
+    <button on:click={login}>
+        Signin with Google
+    </button>
 {/if}
 </section>

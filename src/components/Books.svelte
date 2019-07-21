@@ -1,6 +1,6 @@
 <script>
     import Book from './Book.svelte';
-    import { db } from './firebase';
+    import { db } from './../firebase';
     import { collectionData } from 'rxfire/firestore';
     import { startWith } from 'rxjs/operators';
 
@@ -19,7 +19,7 @@
 </script>
 
 <ul>
-	{#each $books as book}
+    {#each $books as book}
         <Book {...book} />
-	{/each}
+    {/each}
 </ul>

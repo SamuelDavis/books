@@ -2,8 +2,8 @@
   "version": 3,
   "file": "bundle.css",
   "sources": [
-    "../src/Book.svelte",
-    "../src/Block.svelte"
+    "../src/components/Book.svelte",
+    "../src/components/Block.svelte"
   ],
   "sourcesContent": [
     "<script>\n    import Block from './Block.svelte';\n\n    export let id;\n    export let title;\n    export let author;\n    export let publishedAt;\n    export let blocks;\n</script>\n\n<style>\n    h1 {\n        text-align: center;\n    }\n    small {\n        margin-left: 65%;\n        text-align: right;\n    }\n</style>\n\n<div id=\"{id}\">\n    <h1>{title}</h1>\n    <small>{author}</small>\n    {#each blocks as block}\n        <Block {...block} />\n    {/each}\n</div>\n",
