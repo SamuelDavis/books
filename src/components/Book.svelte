@@ -1,27 +1,21 @@
 <script>
-    import Block from './Block.svelte';
-
     export let id;
     export let title;
     export let author;
     export let publishedAt;
-    export let blocks;
+    export let onClick;
 </script>
 
 <style>
-    h1 {
-        text-align: center;
+    button {
+        text-align: left;
     }
-    small {
-        margin-left: 65%;
-        text-align: right;
+    h1 {
+        margin: 0
     }
 </style>
 
-<div id="{id}">
+<button on:click={onClick}>
     <h1>{title}</h1>
-    <small>{author}</small>
-    {#each blocks as block}
-        <Block {...block} />
-    {/each}
-</div>
+    <small>by {author} ({publishedAt.toDate().getFullYear()})</small>
+</button>
