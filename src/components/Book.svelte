@@ -17,5 +17,5 @@
 
 <button on:click={onClick}>
     <h1>{title}</h1>
-    <small>by {author} ({publishedAt.toDate().getFullYear()})</small>
+    <small>by {author} ({publishedAt})</small>
 </button>
