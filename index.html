@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:;base64,iVBORwOKGO="/>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+    button {
+      cursor: pointer;
+    }
+
+    section {
+      margin: 1em;
+    }
+
+    ul.unstyled {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.horizontal li {
+      display: inline-block;
+    }
+
+    .bookshelf button {
+      text-align: left;
+    }
+
+    .bookshelf h1 {
+      margin: 0
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuex"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+<script src="index.js" type="module"></script>
+<script id="app-template" type="text/x-template">
+  <div>
+    <Toolbar/>
+    <hr>
+    <Book v-if="bookIsOpen"/>
+    <Bookshelf v-else/>
+  </div>
+</script>
+<script id="toolbar-template" type="text/x-template">
+  <ul class="unstyled horizontal">
+    <li>
+      <button @click={copyLink} v-text="`Build Url`"></button>
+    </li>
+    <li>
+      <Auth/>
+    </li>
+    <li v-if="openedBook">
+      <button @click="closeBook" v-text="`Close ${openedBook.title}`"></button>
+    </li>
+  </ul>
+</script>
+<script id="auth-template" type="text/x-template">
+  <div>
+    <button v-if="user" @click="signOut" v-text="`Sign Out (${user.displayName})`"></button>
+    <button v-else @click="signIn" v-text="`Sign in with Google`"></button>
+  </div>
+</script>
+<script id="bookshelf-template" type="text/x-template">
+  <ul class="unstyled bookshelf">
+    <li v-for="book in books">
+      <button :id="book.id" @click="() => openBook(book)">
+        <h1 v-text="book.title"></h1>
+        <small v-text="`by ${book.author} (${book.publishedAt})`"></small>
+      </button>
+    </li>
+  </ul>
+</script>
+<script id="book-template" type="text/x-template">
+  <section>
+    <component v-for="block in blocks" :key="`${block.page}-${block.index}`" :is="block.type"
+               v-text="block.text"></component>
+  </section>
+</script>
+</body>
+</html>
