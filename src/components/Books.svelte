@@ -1,22 +1,21 @@
 <script>
-    import Book from './Book.svelte';
+    import ClosedBook from './ClosedBook.svelte';
+    import OpenBook from './OpenBook.svelte';
     import { db } from './../firebase';
     import { collectionData } from 'rxfire/firestore';
     import { startWith } from 'rxjs/operators';
 
-    // User ID passed from parent
     export let uid;
     let openedBook;
 
-    const collection = db.collection('books');
-
-    // Query requires an index, see screenshot below
-    const query = collection.orderBy('title');
-
+    const query = db
+        .collection('books')
+        .orderBy('title')
+        .limit(10000);
     const books = collectionData(query, 'id').pipe(startWith([]));
 
-    const openBook = (book) => openedBook = book;
-    const closeBook = () => openedBook = false;
+    const openClosedBook = (book) => openedBook = book;
+    const closeClosedBook = () => openedBook = false;
 </script>
 
 <style>
@@ -29,12 +28,13 @@
 </style>
 
 {#if openedBook}
-<button on:click={closeBook}>Close {openedBook.title}</button>
+<button on:click={closeClosedBook}>Close {openedBook.title}</button>
+<OpenBook {...{bookId: openedBook.id}}/>
 {:else}
 <ul>
     {#each $books as book}
     <li>
-        <Book {...book, {onClick: openBook.bind(openBook, book)}}/>
+        <ClosedBook {...book, {onClick: openClosedBook.bind(openClosedBook, book)}}/>
     </li>
     {/each}
 </ul>
